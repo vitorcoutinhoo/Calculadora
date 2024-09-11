@@ -8,56 +8,108 @@ import { useState } from "react";
 const App = () => {
   const [currentNumber, setCurrentNumber] = useState("0");
   const [memoryNumber, setMemoryNumber] = useState(0);
+  const [flagResult, setFlagResult] = useState(false);
   const [operation, setOperation] = useState("");
 
-  // Add number to screen
   const handleAddNumber = (num) => {
+    if (flagResult){
+      setCurrentNumber(num);
+      setFlagResult(false);
+      return;
+    }
+
     setCurrentNumber(prev => `${prev === '0'? "": prev}${num}`);
   }
 
-  // Clear screen
   const handleClear = () => {
     setCurrentNumber("0");
     setMemoryNumber(0);
+    setFlagResult(false);
     setOperation("");
   }
 
-  // Sum operation
   const handleSum = () => {
     setOperation("+");
 
-    if (memoryNumber === 0) {
-      setMemoryNumber(Number(currentNumber));
-      setCurrentNumber("0");
-    } 
-
-    setMemoryNumber(Number(memoryNumber) + Number(currentNumber));
-    setCurrentNumber("0");
-  }
-
-  // Subtraction operation
-  const handleSubtraction = () => {
-    setOperation("-");
-
-    if (memoryNumber === 0) {
-      setMemoryNumber(Number(currentNumber));
-      setCurrentNumber("0");
+    if (flagResult) {
+      const sum = Number(currentNumber) + Number(memoryNumber);
+      setMemoryNumber(String(sum));
     }
 
-    setMemoryNumber(Number(memoryNumber) - Number(currentNumber) * -1);
+    setMemoryNumber(currentNumber);
     setCurrentNumber("0");
   }
 
-  // Show the result
+  const handleSubtraction = () => {
+    setOperation("-");
+    
+    if (flagResult) {
+      const subtraction = Number(memoryNumber) - Number(currentNumber);
+      setMemoryNumber(String(subtraction));
+    }
+
+    setMemoryNumber(currentNumber);
+    setCurrentNumber("0");
+  }
+
+  const handleMultiplication = () => {
+    setOperation("x");
+
+    if (flagResult) {
+      const multiplication = Number(currentNumber) * Number(memoryNumber);
+      setCurrentNumber(String(multiplication));
+    }
+
+    setMemoryNumber(currentNumber);
+    setCurrentNumber("0");
+  }
+
+  const handleDivision = () => {
+    setOperation("/");
+
+    if (flagResult) {
+      const division = Number(memoryNumber) / Number(currentNumber);
+      setCurrentNumber(String(division));
+    }
+
+    setMemoryNumber(currentNumber);
+    setCurrentNumber("0");
+  }
+  
   const handleResult = () => {
+    setFlagResult(true);
+
     if (operation === "+") {
-      const sum = Number(memoryNumber) + Number(currentNumber);
-      setCurrentNumber(sum);
+      setOperation("");
+
+      const sum = Number(currentNumber) + Number(memoryNumber);
+      setCurrentNumber(String(sum));
     }
 
     if (operation === "-") {
+      setOperation("");
+
       const subtraction = Number(memoryNumber) - Number(currentNumber);
-      setCurrentNumber(subtraction);
+      setCurrentNumber(String(subtraction));
+    }
+
+    if (operation === "x") {
+      setOperation("");
+
+      const multiplication = Number(currentNumber) * Number(memoryNumber);
+      setCurrentNumber(String(multiplication));
+    }
+
+    if (operation === "/") {
+      setOperation("");
+
+      const division = Number(memoryNumber) / Number(currentNumber);
+      if (isNaN(division) || !isFinite(division)) {
+        setCurrentNumber("Error");
+        return;
+      }
+        
+      setCurrentNumber(String(Math.round(division * 1000) / 1000));
     }
   }
 
@@ -69,13 +121,13 @@ const App = () => {
           <Button label="7" onClick = {() => handleAddNumber("7")}/>
           <Button label="8" onClick = {() => handleAddNumber("8")}/>
           <Button label="9" onClick = {() => handleAddNumber("9")}/>
-          <Button label="/"/>
+          <Button label="/" onClick = {() => handleDivision()}/>
         </Row>
         <Row>
           <Button label="4" onClick = {() => handleAddNumber("4")}/>
           <Button label="5" onClick = {() => handleAddNumber("5")}/>
           <Button label="6" onClick = {() => handleAddNumber("6")}/>
-          <Button label="x"/>
+          <Button label="x" onClick = {() => handleMultiplication()}/>
         </Row>
         <Row>
           <Button label="1" onClick = {() => handleAddNumber("1")}/>

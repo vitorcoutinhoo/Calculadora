@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #f0f1e2;
 
     display: flex;
     align-items: center;
@@ -22,9 +22,14 @@ export const Content = styled.div`
 `;
 
 export const Row = styled.div`
+    width: 100%;
     display: flex;
+
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+
+    & > :nth-child(4) {
+        margin-left: 3px;
+    }
 `;
 

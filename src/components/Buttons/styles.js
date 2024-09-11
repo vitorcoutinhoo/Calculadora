@@ -8,10 +8,11 @@ export const ButtonContainer = styled.button`
     color: #fff;
     font-size: 24px;
     font-weight: 700;
-    font-family: 'arial';
+    font-family: 'Open Sans';
 
     flex: 1;
     &:hover {
         opacity: 0.7;
+        cursor: pointer;
     }
 `

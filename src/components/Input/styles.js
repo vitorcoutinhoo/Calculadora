@@ -3,6 +3,9 @@ import styled from "styled-components";
 const color = "#666";
 
 export const InputContainer = styled.div`
+    margin: 0 0 15px 0;
+    padding: 0;
+
     width: 100%;
     height: 75px;
     background-color: ${color};
@@ -14,8 +17,6 @@ export const InputContainer = styled.div`
     font-size: 24px;
     font-family: 'arial';
 
-    margin-bottom: 10px;
-
     input {
         width: 100%;
         height: 75px;
@@ -26,10 +27,11 @@ export const InputContainer = styled.div`
         text-align: right;
         
         font-size: 24px;
-        font-family: 'arial';
+        font-family: 'Open Sans';
         font-weight: bold;
         color: #fff;
 
         outline: none;
     }
+    
 `;
