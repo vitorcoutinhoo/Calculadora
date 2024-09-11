@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/Calculadora/static/js/main.ecf6047d.js",
+    "index.html": "/Calculadora/index.html",
+    "main.ecf6047d.js.map": "/Calculadora/static/js/main.ecf6047d.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ecf6047d.js"
+  ]
+}
